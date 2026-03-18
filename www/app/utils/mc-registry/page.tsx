@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description: "Browse Minecraft registry data including Block IDs, Sound Events, and more",
     images: [
       {
-        url: "https://soncresityindustries.vercel.app/logo.png",
+        url: "https://soncresity.industries/logo.png",
         width: metadataImageWidth,
         height: metadataImageHeight,
       },

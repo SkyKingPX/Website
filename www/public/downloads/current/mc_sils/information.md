@@ -12,7 +12,7 @@
 </div>
 
 <p align="center">
-<a href="https://soncresityindustries.vercel.app/wiki/lifesteal" target="_blank">
+<a href="https://wiki.soncresity.industries/sils" target="_blank">
     <img alt="Wiki" src="https://github.com/Soncresity-Industries/cozy-badges/blob/main/read-the-wiki-badge.png?raw=true" height=50 hspace="5">
 </a>
 
@@ -69,5 +69,5 @@ Or use the [CurseForge](https://www.curseforge.com/download/app) or [Modrinth Ap
 </p>
 
 <p align="center">
-    <i><a href=https://soncresityindustries.vercel.app/license/>Copyright Soncresity Industries</a></i>
+    <i><a href=https://soncresity.industries/license/>Copyright Soncresity Industries</a></i>
 </p>

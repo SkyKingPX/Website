@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description: "The official World Map of Sodonia by Soncresity Industries",
     images: [
       {
-        url: "https://soncresityindustries.vercel.app/logo.png",
+        url: "https://soncresity.industries/logo.png",
         width: metadataImageWidth,
         height: metadataImageHeight,
       },

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description: "Convert time between different systems including Earth Time, Sodonian Time, Infernian Time, and Creator Time",
     images: [
       {
-        url: "https://soncresityindustries.vercel.app/logo.png",
+        url: "https://soncresity.industries/logo.png",
         width: metadataImageWidth,
         height: metadataImageHeight,
       },

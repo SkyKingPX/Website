@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description: "Generate custom Minecraft datapacks for modifying dimension heights",
     images: [
       {
-        url: "https://soncresityindustries.vercel.app/assets/si-logo-transparent.png",
+        url: "https://soncresity.industries/logo.png",
         width: metadataImageWidth,
         height: metadataImageHeight,
       },

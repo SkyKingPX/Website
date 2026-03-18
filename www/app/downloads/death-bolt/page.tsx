@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: "Download SI: Death Bolt, a Mod by Soncresity Industries that summons a lightning bolt upon player death",
     images: [
       {
-        url: "https://soncresityindustries.vercel.app/assets/si-logo-transparent.png",
+        url: "https://soncresity.industries/logo.png",
         width: metadataImageWidth,
         height: metadataImageHeight,
       },

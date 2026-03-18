@@ -270,19 +270,11 @@ export default function Projects({viewall}: ProjectsProps) {
                         </div>
                         <Button size="sm" variant="default" className="gap-1" asChild>
                           {project.wikiid && project.wikiid.trim() !== "" && (
-                            project.category === "Tool" ? (
-                              <a href={`/utils/${project.wikiid}`}><ShinyText
-                                text="Use"
-                                disabled={false}
-                                speed={2}
-                              /><ArrowRight size={14}/></a>
-                            ) : (
-                              <a href={`/wiki/${project.wikiid}`}><ShinyText
+                              <a href={`https://wiki.soncresity.industries/${project.wikiid}`}><ShinyText
                                 text="Wiki"
                                 disabled={false}
                                 speed={2}
                               /><ArrowRight size={14}/></a>
-                            )
                           )}
                         </Button>
                       </CardFooter>

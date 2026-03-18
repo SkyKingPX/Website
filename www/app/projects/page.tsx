@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description: "All Projects of Soncresity Industries",
     images: [
       {
-        url: "https://soncresityindustries.vercel.app/logo.png",
+        url: "https://soncresity.industries/logo.png",
         width: metadataImageWidth,
         height: metadataImageHeight,
       },
