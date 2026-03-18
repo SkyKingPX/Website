@@ -4,10 +4,15 @@ import {DocsLayout} from 'fumadocs-ui/layouts/docs';
 import {baseOptions} from '@/lib/layout.shared';
 import {ThemeProvider} from 'next-themes';
 import {RootProvider} from "fumadocs-ui/provider/next";
+import { JetBrains_Mono } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
+
 
 export default function Layout({children}: LayoutProps<'/'>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={cn("font-mono", jetbrainsMono.variable)}>
     <body>
     <RootProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
