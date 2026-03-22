@@ -83,7 +83,7 @@ export default function MetadataImage({
           <img src="/icons/si.png"
             style={{
               maxWidth: 64,
-            }}
+            }} />
           <span
             style={{
               fontSize: 32,
