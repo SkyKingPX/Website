@@ -1,15 +1,15 @@
 ---
-title: "Configuration Types (cnfg)"
+title: "Configuration Types"
 description: "A list of configuration Types in the cnfg format for the Configuration API of SI: Essentials"
 curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
 modrinthUrl: https://modrinth.com/mod/sies
 ---
 
-# Configuration Types
+# Cnfg
 ## `CLIENT`
 The `CLIENT` configuration Type is mostly used for client-side settings that are not related to gameplay. (e.g. UI settings)
 - Will only generate on the client side in `<mcRoot>/config/`.  
-- COnfiguration Instance will be `null` on dedicated servers.
+- Configuration Instance will be `null` on dedicated servers.
 
 Registering this type of config is recommended to be done in the Mod's client classes:
 ### Fabric
@@ -56,3 +56,6 @@ The `COMMON` configuration Type is used for general configurations that apply gl
 The `SERVER` configuration Type is used for **world-specific** configurations that can be set for **each world**.  
 A configuration with the `SERVER` type will still be created on both the client and server, but only on world load!  
 - Will generate in `<mcRoot>/saves/<world>/` (Client) or `<serverRoot>/<world>/` (Server).  
+
+# Objt
+*Currently in development*

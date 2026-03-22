@@ -12,8 +12,7 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/[...slug]
   if (!page) notFound();
 
   return new ImageResponse(
-    <MetadataImage title={page.data.title} description={page.data.description} icon={page.data.icon} primaryColor="#026dca" primaryTextColor="#ffffff" site="Soncresity Industries Wiki"/>,
-    //<DefaultImage title={page.data.title} description={page.data.description} site="Soncresity Industries Wiki" />,
+    <MetadataImage title={page.data.title} description={page.data.description} primaryColor="#026dca" primaryTextColor="#ffffff"/>,
     {
       width: 1200,
       height: 630,

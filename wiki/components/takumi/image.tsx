@@ -3,17 +3,13 @@ import type { ReactNode } from "react";
 export default function MetadataImage({
   title,
   description,
-  icon,
   primaryColor,
   primaryTextColor,
-  site,
 }: {
   title: ReactNode;
   description: ReactNode;
-  icon: ReactNode;
   primaryColor: string;
   primaryTextColor: string;
-  site: ReactNode;
 }) {
   return (
     <div
@@ -84,7 +80,10 @@ export default function MetadataImage({
             gap: "28px",
           }}
         >
-          {icon}
+          <img src="https://wiki.soncresity.industries/icons/si.png"
+            style={{
+              maxWidth: 96,
+            }} />
           <span
             style={{
               fontSize: 32,
@@ -94,30 +93,9 @@ export default function MetadataImage({
               opacity: 0.9,
             }}
           >
-            {site}
+            Wiki
           </span>
           <div style={{ display: "flex", flexGrow: 1 }} />
-          <div
-            style={{
-              display: "flex",
-              height: 4,
-              width: 60,
-              backgroundColor: primaryColor,
-              borderRadius: 2,
-            }}
-          />
-          <span
-            style={{
-              fontSize: 22,
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.2em",
-              color: primaryTextColor,
-              opacity: 0.8,
-            }}
-          >
-            Documentation
-          </span>
         </div>
       </div>
     </div>
