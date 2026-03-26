@@ -10,17 +10,26 @@ interface ProjectLogoCyclerProps {
 }
 
 const PROJECT_LOGOS = [
+  '/projects/siro/logo.png',
+  '/projects/si_blocker.png',
+  '/projects/si_broken_horizons.png',
+  '/projects/si_broken_moon.png',
+  '/projects/si_chemistry.png',
   '/projects/si_credits.png',
   '/projects/si_crownfall.png',
   '/projects/si_death_bolt.png',
-  '/projects/si_item_remover.png',
+  '/projects/si_distant_deaths.png',
+  '/projects/si_essentials.png',
   '/projects/si_lifesteal.png',
-  '/projects/siro/logo.png',
+  '/projects/si_music_discs.png',
+  '/projects/si_optimized.png',
+  '/projects/si_props.png',
   '/projects/si_scriptified.png',
+  '/projects/si_serephix_ui.png',
+  '/projects/si_soncresity.png',
   '/projects/si_spectre.png',
+  '/projects/si_ui.png',
   '/projects/soncresity_aftermath.png',
-  '/projects/soncresity_fractured_horizons.png',
-  '/projects/height_datapack_generator.png',
 ]
 
 export function ProjectLogoCycler({ 
