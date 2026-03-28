@@ -14,7 +14,7 @@ The `CLIENT` configuration Type is mostly used for client-side settings that are
 Registering this type of config is recommended to be done in the Mod's client classes:
 ### Fabric
 #### `MyModClient`
-```java tab="sies >=2.2.0"
+```java tab="sies >=2.2.0" title="MyModClient.java"
 public class MyModClient implements ClientModInitializer {
     @Override
     public void onClientInitialize() {
@@ -24,7 +24,7 @@ public class MyModClient implements ClientModInitializer {
 ```
 
 #### `fabric.mod.json`
-```json
+```json title="fabric.mod.json"
 {
   "entrypoints": {
     "client": [
@@ -36,7 +36,7 @@ public class MyModClient implements ClientModInitializer {
 
 ### NeoForge
 #### `MyModClient`
-```java tab="sies >=2.2.0"
+```java tab="sies >=2.2.0" title="MyModClient.java"
 @Mod(value = MyMod.MODID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = MyMod.MODID, value = Dist.CLIENT)
 public class MyModClient {

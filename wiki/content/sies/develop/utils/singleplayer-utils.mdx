@@ -14,11 +14,15 @@ This may be useful when your Mod includes banning players but you don't want to 
 
 # Class
 File: `SingleplayerUtils.java`
-Package: `dev.soncresityindustries.es.api.util`
+
+Package: `dev.soncresityindustries.es.api.v0.util`
 
 # Methods
 ## `isSingleplayerHost`
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static boolean isSingleplayerHost(@NotNull ServerPlayer player) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static boolean isSingleplayerHost(ServerPlayer player) {}
 ```
 

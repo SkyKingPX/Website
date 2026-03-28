@@ -15,11 +15,10 @@ modrinthUrl: https://modrinth.com/mod/sies
 With our setup, we allow to create separate log files for each world that only contain the output of your mod. This makes finding issues in your code faster.  
 
 Our logger also comes with a debug option that is controlled with the global [`debug_enabled` value of the SI: Essentials Common Cnfg](/sies/general-configuration#debug_enabled). While debug output is only visible depending on that value in the Minecraft logs, debug output will **always** be logged to your custom logfile that was explained above.
-
 ## Getting Started
 To start using our logger, simply create a public Logger field that uses the Logger class from `dev.soncresityindustries.api.logger`:
 ```java
-import dev.soncresityindustries.es.api.logger.Logger;
+import dev.soncresityindustries.es.api.v0.logger.Logger;
 
 public static final String MOD_ID = "my_mod";
 public static final Logger LOGGER = new Logger(MOD_ID);
@@ -52,7 +51,7 @@ public void initializeFileLogging(@NotNull MinecraftServer server, @NotNull Stri
 ```
 
 ### Fabric
-```java tab="sies >=2.3.0"
+```java tab="sies >=2.3.0" title="MyMod.java"
 @Override
 public void onInitialize() {
     ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
@@ -67,7 +66,7 @@ public void onInitialize() {
     });
 }
 ```
-```java tab="sies \<=2.2.1"
+```java tab="sies \<=2.2.2" title="MyMod.java"
 // Not recommended in terms of customizability. Please update to 2.3.0.
 @Override
 public void onInitialize() {

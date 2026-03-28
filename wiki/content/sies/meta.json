@@ -5,5 +5,5 @@
   "icon": "/logos/sies.png",
   "collapsible": false,
   "defaultOpen": true,
-  "pages": ["---General---", "index", "general-configuration", "---Remover Module---", "remover", "configuration", "---Development---", "develop", "logger", "file-formats", "configuration-api", "utils", "..."]
+  "pages": ["---General---", "index", "general-configuration", "---Remover Module---", "remover", "configuration", "---UI Module---", "ui", "configuration", "---Development---", "develop", "logger", "file-formats", "configuration-api", "utils", "..."]
 }

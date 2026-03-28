@@ -18,7 +18,39 @@ To create a configuration with the Cnfg file format you need a place to register
 
 ### Prepare the `MyCnfg` Class
 Feel free to copy the code below. If you want to use a `CLIENT` or `SERVER` Cnfg Type, you will need to adjust the `init()` method.
-```java tab="sies >=2.2.0"
+```java tab="sies >=2.3.0" title="MyCnfg.java"
+package com.example.mymod;
+
+import dev.soncresityindustries.es.api.v0.config.cnfg.CnfgBuilder;
+import dev.soncresityindustries.es.api.v0.config.cnfg.CnfgKey;
+import dev.soncresityindustries.es.api.v0.config.cnfg.CnfgManager;
+
+public class MyCnfg {
+    public static dev.soncresityindustries.es.api.v0.config.cnfg.Cnfg MY_COMMON_CNFG = null;
+
+    /* Values can be created as fields here */
+
+    private static CnfgBuilder createSchema() {
+        return new CnfgBuilder()
+        /* Comments and values will be defined here */
+        ;
+    }
+
+    protected static void init() {
+        MY_COMMON_CNFG = CnfgManager.loadCommonCnfg(
+            "mymod_common",
+            "mymod/common.cnfg",
+            createSchema()
+        );
+
+        // If your Cnfg Type is CLIENT you might want to change/remove this
+        if (MY_COMMON_CNFG == null) {
+            throw new RuntimeException("Failed to load client config!");
+        }
+    }
+}
+```
+```java tab="sies <=2.2.2" title="MyCnfg.java"
 package com.example.mymod;
 
 import dev.soncresityindustries.es.api.cnfg.CnfgBuilder;
@@ -26,7 +58,7 @@ import dev.soncresityindustries.es.api.cnfg.CnfgKey;
 import dev.soncresityindustries.es.api.cnfg.CnfgManager;
 
 public class MyCnfg {
-    public static dev.soncresityindustries.es.api.cnfg.Cnfg MY_COMMON_CNFG = null;
+    public static dev.soncresityindustries.es.api.v0.config.cnfg.Cnfg MY_COMMON_CNFG = null;
 
     /* Values can be created as fields here */
 
@@ -54,7 +86,7 @@ public class MyCnfg {
 ### Registering the Cnfg
 Due to the Mod initialization being different on Fabric and NeoForge Cnfgs need to be registered differently for each modloader. However the base principle stays the same.
 #### Fabric
-```java tab="sies >=2.2.0"
+```java tab="sies >=2.2.0" title="MyMod.java"
 public class MyMod implements ModInitializer {
     @Override
     public void onInitialize() {
@@ -64,7 +96,7 @@ public class MyMod implements ModInitializer {
 ```
 
 #### NeoForge
-```java tab="sies >=2.2.0"
+```java tab="sies >=2.2.0" title="MyMod.java"
 @Mod(MyMod.MODID)
 public class MyMod {
     public MyMod(IEventBus modEventBus, ModContainer modContainer) {
