@@ -5,6 +5,14 @@
 
 ## Domains
 
+### soncresity.com
+
+* [example](./example.soncresity.com/README.md)
+
+### soncresity.dev
+
+* [example](./example.soncresity.dev/README.md)
+
 ### soncresity.industries
 
 * [assets](./assets.soncresity.industries/README.md)
@@ -13,14 +21,6 @@
 * [support](./support.soncresity.industries/README.md)
 * [wiki](./wiki.soncresity.industries/README.md)
 * [www](./www.soncresity.industries/README.md)
-
-### soncresity.com
-
-* [example](./example.soncresity.com/README.md)
-
-### soncresity.dev
-
-* [example](./example.soncresity.dev/README.md)
 
 ### soncresity.internal
 
