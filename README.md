@@ -1,25 +1,27 @@
 # Soncresity Industries Websites
 
-> This is the Soncresity Industries websites repository, deployed under https://*.soncresity.industries.
+> This is the Soncresity Industries webpage repository.
+> This repository contains the entirety of all webpages made and deployed by/for Soncresity Industries.
 
 ## Domains
 
 ### soncresity.industries
 
-* [assets](./soncresity.industries/assets/README.md)
-* [downlaods](./soncresity.industries/downloads/README.md)
-* [example](./soncresity.industries/example/README.md)
-* [wiki](./soncresity.industries/wiki/README.md)
-* [www](./soncresity.industries/www/README.md)
+* [assets](./assets.soncresity.industries/README.md)
+* [downloads](./downloads.soncresity.industries/README.md)
+* [example](./example.soncresity.industries/README.md)
+* [support](./support.soncresity.industries/README.md)
+* [wiki](./wiki.soncresity.industries/README.md)
+* [www](./www.soncresity.industries/README.md)
 
 ### soncresity.com
 
-* [example](./soncresity.com/example/README.md)
+* [example](./example.soncresity.com/README.md)
 
 ### soncresity.dev
 
-* [example](./soncresity.dev/example/README.md)
+* [example](./example.soncresity.dev/README.md)
 
 ### soncresity.internal
 
-* [example](./soncresity.internal/example/README.md)
+* [example](./example.soncresity.internal/README.md)
