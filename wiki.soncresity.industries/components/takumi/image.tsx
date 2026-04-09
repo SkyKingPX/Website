@@ -80,7 +80,7 @@ export default function MetadataImage({
             gap: "28px",
           }}
         >
-          <img src="https://wiki.soncresity.industries/icons/si.png"
+          <img src="/icons/si.png"
             style={{
               maxWidth: 96,
             }} />
