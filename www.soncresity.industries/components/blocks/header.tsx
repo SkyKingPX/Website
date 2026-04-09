@@ -28,7 +28,7 @@ export default function Header() {
     {name: "Socials", href: "/socials"},
     {name: "Team", href: "/team"},
     {name: "Help", href: "/help"},
-    {name: "Wiki", href  "https://wiki.soncresity.industries"},
+    {name: "Wiki", href: "https://wiki.soncresity.industries"},
     {name: "Utilities", href: "/utils"},
     {name: "Partners", href: "/partners"},
   ]
