@@ -1,0 +1,38 @@
+---
+title: "Placeholder API"
+description: "An explanation on how to use, resolve and add your own placeholders"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+
+<Callout title="Information" type="info">
+  Placeholders were first introduced in Version `2.3.0` of **SI: Essentials**. They do not work in versions below `2.3.0`.
+</Callout>
+
+Placeholders can be used to display dynamic information in various places, such as in GUIs or in logs.
+
+They are always enclosed in percentage signs (`%`). You can find a list of all available Placeholders [**here**](/sies/placeholders).
+You can also add your own custom placeholders, which is explained in the next section.
+
+## Adding Custom Placeholders
+To add your own custom placeholders, you need to simply call `PlaceholderResolver resolver = PlaceholderResolver.INSTANCE;` and then `resolver.register("placeholder", () -> "placeholder_value");`.
+
+This will register a new placeholder `%placeholder%` which will be resolved to `placeholder_value` whenever it is used.
+
+You can also use a lambda expression to provide dynamic values for the placeholder, such as `resolver.register("random_number", () -> String.valueOf(new Random().nextInt(100)));` which will register a new placeholder `%random_number%` that will be resolved to a random number between 0 and 99 whenever it is used.
+
+<Callout title="Important" type="warning">
+  When registering a placeholder you need to think about whether it can be accessed on both the client and server or only on the client.
+  If it can only be accessed on the client, make sure to register it in your Client initializer. Otherwise call it in your common initializer.
+</Callout>
+
+## Resolving Placeholders
+To resolve placeholders in a string, you can simply call `PlaceholderResolver.INSTANCE.resolvePlaceholders(stringWithPlaceholders);` which will return a new string with all placeholders resolved."
+
+An example would be:
+```java
+String message = "You are playing on Minecraft %loader% (version %game_version%) with SI: Essentials version %sies_version%";
+String resolvedMessage = PlaceholderResolver.INSTANCE.resolvePlaceholders(message);
+
+// Example Output: "You are playing on Minecraft Fabric (version 1.21.11) with SI: Essentials version 2.3.0"
+```

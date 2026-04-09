@@ -47,20 +47,48 @@ my_number = 3
 Lists can hold Strings or Numerical values. (Not both at the same time!)  
 A list is always enclosed in squared brackets.  
 
+<Callout title="Indents" type="info">
+  The indents will always be restored as seen in the example for better readability.
+</Callout>
+
 #### Example [!toc]
 ```cnfg
-my_list = ["my", "values"]
+my_list = [
+    "my",
+    "values"
+]
 ```
 
 ## Maps
 Maps can hold Strings or Numerical values. (Not both at the same time!)  
 A map is always enclosed in curly brackets.
 
-<Callout title="Important" type="warning">
-  This feature is experimental and **will** change in the future. We are aware of the issues that may be caused by the current syntax.
+<Callout title="Indents" type="info">
+  The indents will always be restored as seen in the example for better readability.
 </Callout>
 
 #### Example [!toc]
 ```cnfg
-my_map = {key: "value"}
+my_map = {
+    "key1": "value1",
+    "key2": "value2"
+}
+```
+
+## Sets
+Sets can hold Strings or Numerical values. (Not both at the same time!)
+A set is always enclosed in curly brackets.
+
+If you didn't know, a Set is a Collection that doesn't allow duplicate values. So if you try to add the same value multiple times, it will only be stored once.
+
+<Callout title="Indents" type="info">
+  The indents will always be restored as seen in the example for better readability.
+</Callout>
+
+#### Example [!toc]
+```cnfg
+my_set = {
+    "value1",
+    "value2"
+}
 ```

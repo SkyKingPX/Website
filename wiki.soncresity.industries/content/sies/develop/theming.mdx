@@ -1,0 +1,228 @@
+---
+title: "Theming"
+description: "A guide on how to start theming your items to support our themes"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+
+<Callout title="Information" type="info">
+  As of writing, this has only been tested with items.
+</Callout>
+
+In **SI: Essentials** 2.3.0, we have introduced themes that can be used for items. This means that depending on the [`THEME`](/sies/ui/configuration#theme) (or `theme`) in the [UI Module Configuration](/sies/ui/configuration) different models/textures can be shown for an item/block/etc.
+
+Sadly, the process of setting this up is different in 1.21.1 than in newer versions but we will go over both.
+
+<Callout title="Adding your own themes" type="info">
+  Currently, there is no reliable way of adding your own custom themes. For now please use the "hardcoded" themes but we plan to make this possible in the future.
+</Callout>
+
+### Assumptions
+On this page we assume, that you already have a texture and a model for **each theme of an item**. Usually you would use the same model, pointing to a different texure but you can also use entirely different models and textures for variations.
+
+This process is the same for each version.
+
+We recommend this folder structure:
+```
+assets
+   \- your_mod
+      \- models
+         \- item
+            \- chroma_key
+            \- fluid_black
+            \- fluid_blue
+            \- fluid_green
+            \- fluid_orange
+            \- fluid_purple
+            \- fluid_red
+            \- fluid_white
+            \- fluid_yellow
+            \- plain_dark
+            \- plain_light
+      \- textures
+         \- item
+            \- chroma_key
+            \- fluid_black
+            \- fluid_blue
+            \- fluid_green
+            \- fluid_orange
+            \- fluid_purple
+            \- fluid_red
+            \- fluid_white
+            \- fluid_yellow
+            \- plain_dark
+            \- plain_light
+```
+
+# 1.21.1+ [#1-21-1-plus]
+1. Create the `assets/your_mod/items/` directory
+2. Create a `your_item.json` file for each of your items
+3. Paste the following content and adjust it accordingly:
+
+<Callout title="Caution" type="warning">
+  You **cannot** mix up the `threshold` value as they are already mapped to a theme!  
+</Callout>
+
+```json
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "property": "sies:theme",
+    "entries": [
+      {
+        "threshold": 0.01,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/fluid_black/your_item"
+        }
+      },
+      {
+        "threshold": 0.02,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/fluid_blue/your_item"
+        }
+      },
+      {
+        "threshold": 0.03,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/fluid_green/your_item"
+        }
+      },
+      {
+        "threshold": 0.04,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/fluid_orange/your_item"
+        }
+      },
+      {
+        "threshold": 0.05,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/fluid_purple/your_item"
+        }
+      },
+      {
+        "threshold": 0.06,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/fluid_red/your_item"
+        }
+      },
+      {
+        "threshold": 0.07,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/fluid_white/your_item"
+        }
+      },
+      {
+        "threshold": 0.08,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/fluid_yellow/your_item"
+        }
+      },
+      {
+        "threshold": 0.09,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/plain_dark/your_item"
+        }
+      },
+      {
+        "threshold": 0.1,
+        "model": {
+          "type": "minecraft:model",
+          "model": "your_mod:item/plain_light/your_item"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "your_mod:item/chroma_key/your_item"
+    }
+  }
+}
+```
+
+# 1.21.1 [#1-21-1]
+1. In `assets/your_mod/models/item`, create a `your_item.json` file for each of your items
+2. Paste the following content and adjust it accordingly:
+
+<Callout title="Caution" type="warning">
+  You **cannot** mix up the `threshold` value as they are already mapped to a theme!
+</Callout>
+
+```json
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "your_mod:item/chroma_key/your_item"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "sies:theme": 0.01
+      },
+      "model": "your_mod:item/fluid_black/your_item"
+    },
+    {
+      "predicate": {
+        "sies:theme": 0.02
+      },
+      "model": "your_mod:item/fluid_blue/your_item"
+    },
+    {
+      "predicate": {
+        "sies:theme": 0.03
+      },
+      "model": "your_mod:item/fluid_green/your_item"
+    },
+    {
+      "predicate": {
+        "sies:theme": 0.04
+      },
+      "model": "your_mod:item/fluid_orange/your_item"
+    },
+    {
+      "predicate": {
+        "sies:theme": 0.05
+      },
+      "model": "your_mod:item/fluid_purple/your_item"
+    },
+    {
+      "predicate": {
+        "sies:theme": 0.06
+      },
+      "model": "your_mod:item/fluid_red/your_item"
+    },
+    {
+      "predicate": {
+        "sies:theme": 0.07
+      },
+      "model": "your_mod:item/fluid_white/your_item"
+    },
+    {
+      "predicate": {
+        "sies:theme": 0.08
+      },
+      "model": "your_mod:item/fluid_yellow/your_item"
+    },
+    {
+      "predicate": {
+        "sies:theme": 0.09
+      },
+      "model": "your_mod:item/plain_dark/your_item"
+    },
+    {
+      "predicate": {
+        "sies:theme": 0.1
+      },
+      "model": "your_mod:item/plain_light/your_item"
+    }
+  ]
+}
+```

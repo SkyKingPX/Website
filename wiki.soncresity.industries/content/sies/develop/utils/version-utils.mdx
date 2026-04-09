@@ -1,0 +1,54 @@
+---
+title: "Version Utilities"
+description: "Allows you to get the Minecraft, loader and SI: Essentials version"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+
+<Callout title="Introduction" type="info">
+  A fully functional Version of this class has first been introduced in Version `2.3.0`
+</Callout>
+
+The Version Utils class allows you to get the current Minecraft/Loader/SI: Essentials version.
+
+# Class
+File: `VersionUtils.java`
+
+Package: `dev.soncresityindustries.es.api.v0.util`
+
+# Methods
+## `getMinecraftVersion`
+```java tab="sies >=2.3.0"
+public static String getMinecraftVersion() {}
+```
+Returns the current Minecraft version as a String.
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+String mcVer = VersionUtils.getMinecraftVersion();
+```
+
+## `getLoaderVersion`
+```java tab="sies >=2.3.0"
+public static String getLoaderVersion() {}
+```
+Returns the current Loader version as a String.
+
+**Example:**
+- For Fabric, it would return something like `0.18.4`
+- For NeoForge, it would return something like `21.11.38-beta`
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+String loaderVer = VersionUtils.getLoaderVersion();
+```
+## `getSIESVersion`
+```java tab="sies >=2.3.0"
+public static String getSIESVersion() {}
+```
+Returns the current **SI: Essentials** version as a String.
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+String siesVer = VersionUtils.getSIESVersion();
+```

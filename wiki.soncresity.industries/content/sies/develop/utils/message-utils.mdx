@@ -13,11 +13,15 @@ The Message Utilities class allows you to send (privately and broadcast) message
 
 # Class
 File: `MessageUtils.java`
-Package: `dev.soncresityindustries.es.api.util`
+
+Package: `dev.soncresityindustries.es.api.v0.util`
 
 # Methods
 ## `sendClientMessage`
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static void sendClientMessage(@NotNull String prefix, @NotNull ServerPlayer player, @NotNull String serializedMessage, boolean isActionBar) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static void sendClientMessage(String prefix, ServerPlayer player, String serializedMessage, boolean isActionBar) {}
 ```
 Sends a messasge privately to the specified `ServerPlayer`.
@@ -31,7 +35,10 @@ MessageUtils.sendClientMessage(prefix, player, serializedMessage, isActionBar);
 ```
 
 ## `getDeserializedText` (with `prefix`)
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static net.minecraft.network.chat.Component getDeserializedText(@NotNull String prefix, @NotNull String serializedMessage) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static net.minecraft.network.chat.Component getDeserializedText(String prefix, String serializedMessage) {}
 ```
 Transforms a serialized text and prefix with MiniMessage formatting into a Vanilla Chat Component while preserving its format.
@@ -45,8 +52,11 @@ net.minecraft.network.chat.Component component = MessageUtils.getDeserializedTex
 ```
 
 ## `getDeserializedText`
-```java tab="sies >=2.1.0"
-public static net.minecraft.network.chat.Component getDeserializedText(String prefix, String serializedMessage) {}
+```java tab="sies >=2.3.0"
+public static net.minecraft.network.chat.Component getDeserializedText(@NotNull String serializedMessage) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
+public static net.minecraft.network.chat.Component getDeserializedText(String serializedMessage) {}
 ```
 Transforms a serialized text with MiniMessage formatting into a Vanilla Chat Component while preserving its format.
 
@@ -55,27 +65,58 @@ Transforms a serialized text with MiniMessage formatting into a Vanilla Chat Com
 net.minecraft.network.chat.Component component = MessageUtils.getDeserializedText(serializedMessage);
 ```
 
-## `broadcastMessage` (`ServerPlayer` source)
-```java tab="sies >=2.1.0"
+## `broadcastMessage` (`ServerPlayer` source & with `prefix`) [#broadcastmessage-serverplayer-source-with-prefix]
+```java tab="sies >=2.3.0"
+public static void broadcastMessage(@NotNull ServerPlayer source, @NotNull String serializedMessage, boolean isActionBar) {}
+```
+Broadcasts a serialized message with a prefix to every player on the server either in the chat (`isActionBar = false`) or in the Action bar (`isActionBar = true`).
+<Callout title="Cannot provide a `ServerPlayer` instance as the source?" type="info">
+  Use [`broadcastMessage`](#broadcastmessage-minecraftserver-source-with-prefix) with the `MinecraftServer` source.
+</Callout>
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+MessageUtils.broadcastMessage(source, serializedMessage, isActionBar);
+```
+
+## `broadcastMessage` (`ServerPlayer` source`)
+```java tab="sies >=2.3.0"
+public static void broadcastMessage(@NotNull ServerPlayer source, @NotNull String serializedMessage, boolean isActionBar) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static void broadcastMessage(ServerPlayer source, String serializedMessage, boolean actionBar) {}
 ```
-Broadcasts a serialized message to every player on the server either in the chat (`actionBar = false`) or in the Action bar (`actionBar = true`).
+Broadcasts a serialized message to every player on the server either in the chat (`isActionBar = false`) or in the Action bar (`isActionBar = true`).
 <Callout title="Cannot provide a `ServerPlayer` instance as the source?" type="info">
   Use [`broadcastMessage`](#broadcastmessage-minecraftserver-source) with the `MinecraftServer` source.
 </Callout>
 
 ### Usage [!toc]
 ```java tab="sies >=2.1.0"
-MessageUtils.broadcastMessage(source, serializedMessage, actionBar);
+MessageUtils.broadcastMessage(source, serializedMessage, isActionBar);
+```
+
+## `broadcastMessage` (`MinecraftServer` source & with `prefix`) [#broadcastmessage-minecraftserver-source-with-prefix]
+```java tab="sies >=2.3.0"
+public static void broadcastMessage(@NotNull MinecraftServer source, @NotNull String serializedMessage, boolean actionBar) {}
+```
+Broadcasts a serialized message with a prefix to every player on the server either in the chat (`isActionBar = false`) or in the Action bar (`isActionBar = true`).
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+MessageUtils.broadcastMessage(source, serializedMessage, isActionBar);
 ```
 
 ## `broadcastMessage` (`MinecraftServer` source)
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static void broadcastMessage(@NotNull MinecraftServer source, @NotNull String serializedMessage, boolean actionBar) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static void broadcastMessage(MinecraftServer source, String serializedMessage, boolean actionBar) {}
 ```
-Broadcasts a serialized message to every player on the server either in the chat (`actionBar = false`) or in the Action bar (`actionBar = true`).
+Broadcasts a serialized message to every player on the server either in the chat (`isActionBar = false`) or in the Action bar (`isActionBar = true`).
 
 ### Usage [!toc]
 ```java tab="sies >=2.1.0"
-MessageUtils.broadcastMessage(source, serializedMessage, actionBar);
+MessageUtils.broadcastMessage(source, serializedMessage, isActionBar);
 ```

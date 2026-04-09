@@ -1,0 +1,168 @@
+---
+title: "Sound Utils"
+description: "Allows to parse and play sounds privately for a player or broadcast them across the server/dimension"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+
+<Callout title="Introduction" type="info">
+  A fully functional Version of this class has first been introduced in Version `2.1.0`
+  (Before **SI: Essentials** 2.3.0 known as `SoundParser`)
+</Callout>
+
+The Sound Utils class allows you to parse Sound IDs (you can find a list [**here**](https://www.soncresity.industries/utils/mc-registry)) to a `SoundEvent` which you can then use to either play a sound privately for one player or broadcast it across the entire server/an entire dimension.
+
+# Class
+File: `SoundUtils.java`
+
+Package: `dev.soncresityindustries.es.api.v0.util`
+
+# Methods
+## `parseSoundOrDefaultSuccess`
+```java tab="sies >=2.3.0"
+public static SoundEvent parseSoundOrDefaultSuccess(@Nullable String soundID) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
+public static SoundEvent parseSoundOrDefaultSuccess(String soundID) {}
+```
+Parses the `SoundEvent` from a Sound ID (you can find a list [**here**](https://www.soncresity.industries/utils/mc-registry)) or defaults to [`SOUND_FEEDBACK_SUCCESS_ID`](/sies/configuration#sound-feedback-success-id) (or `sound_feedback_success_id`).
+
+<Callout title="Warning" type="warning">
+  Before [**SI: Essentials**](/sies) 2.2.0, this method would **always** return `SoundEvents.PLAYER_LEVELUP`!
+</Callout>
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+SoundEvent soundEvent = SoundUtils.parseSoundOrDefaultSuccess(soundID);
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
+SoundEvent soundEvent = SoundParser.parseSoundOrDefaultSuccess(soundID);
+```
+
+## `parseSoundOrDefaultClick`
+```java tab="sies >=2.3.0"
+public static SoundEvent parseSoundOrDefaultClick(@Nullable String soundID) {}
+```
+Parses the `SoundEvent` from a Sound ID (you can find a list [**here**](https://www.soncresity.industries/utils/mc-registry)) or defaults to [`SOUND_FEEDBACK_CLICK_ID`](/sies/configuration#sound-feedback-click-id) (or `sound_feedback_click_id`).
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+SoundEvent soundEvent = SoundUtils.parseSoundOrDefaultClick(soundID);
+```
+
+## `parseSoundOrDefaultFail`
+```java tab="sies >=2.3.0"
+public static SoundEvent parseSoundOrDefaultFail(@Nullable String soundID) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
+public static SoundEvent parseSoundOrDefaultFail(String soundID) {}
+```
+Parses the `SoundEvent` from a Sound ID (you can find a list [**here**](https://www.soncresity.industries/utils/mc-registry)) or defaults to [`SOUND_FEEDBACK_FAIL_ID`](/sies/configuration#sound-feedback-fail-id) (or `sound_feedback_fail_id`).
+
+<Callout title="Warning" type="warning">
+  Before [**SI: Essentials**](/sies) 2.2.0, this method would **always** return `SoundEvents.NOTE_BLOCK_BASS`!
+</Callout>
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+SoundEvent soundEvent = SoundUtils.parseSoundOrDefaultFail(soundID);
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
+SoundEvent soundEvent = SoundParser.parseSoundOrDefaultFail(soundID);
+```
+
+## `parseSoundOrDefault`
+```java tab="sies >=2.3.0"
+public static SoundEvent parseSoundOrDefault(@Nullable String soundID, @NotNull SoundEvent defaultSound) {}
+```
+```java tab="sies <=2.2.2 & >=2.2.0"
+public static SoundEvent parseSoundOrDefault(String soundID, @NotNull SoundEvent defaultSound) {}
+```
+Parses the `SoundEvent` from a Sound ID (you can find a list [**here**](https://www.soncresity.industries/utils/mc-registry)) or defaults to the specified `defaultSound` sound value.
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+SoundEvent soundEvent = SoundUtils.parseSoundOrDefault(soundID, defaultSound);
+```
+```java tab="sies <=2.2.2 & >=2.2.0"
+SoundEvent soundEvent = SoundParser.parseSoundOrDefault(soundID, defaultSound);
+```
+
+## `playSuccessSound`
+<Callout title="Older versions" type="info">
+  Older versions of this method won't be documented anymore since they underwent significant changes in **SI: Essentials** 2.3.0 and the old versions are now considered outdated and should not be used anymore.
+</Callout>
+
+```java tab="sies >=2.3.0"
+public static void playSuccessSound(@NotNull ServerPlayer player, @NotNull SoundType soundType, @NotNull SoundSource soundSource, @NotNull Vec3 position) {}
+```
+
+Plays the parsed [`SOUND_FEEDBACK_SUCCESS_ID`](/sies/configuration#sound-feedback-success-id) (or `sound_feedback_success_id`) sound privately or publicly (depending on [SoundType](#soundtype)) while respecting the player's choice through [`ENABLE_SOUND_FEEDBACK`](/sies/configuration#enable-sound-feedback) (or `enable_sound_feedback`).
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+SoundUtils.playSuccessSound(player, soundType, soundSource, player.position());
+```
+
+## `playClickSound`
+```java tab="sies >=2.3.0"
+public static void playClickSound(@NotNull ServerPlayer player, @NotNull SoundType soundType, @NotNull SoundSource soundSource, @NotNull Vec3 position) {}
+```
+
+Plays the parsed [`SOUND_FEEDBACK_CLICK_ID`](/sies/configuration#sound-feedback-click-id) (or `sound_feedback_click_id`) sound privately or publicly (depending on [SoundType](#soundtype)) while respecting the player's choice through [`ENABLE_SOUND_FEEDBACK`](/sies/configuration#enable-sound-feedback) (or `enable_sound_feedback`).
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+SoundUtils.playClickSound(player, soundType, soundSource, player.position());
+```
+
+## `playFailSound`
+<Callout title="Older versions" type="info">
+  Older versions of this method won't be documented anymore since they underwent significant changes in **SI: Essentials** 2.3.0 and the old versions are now considered outdated and should not be used anymore.
+</Callout>
+
+```java tab="sies >=2.3.0"
+public static void playFailSound(@NotNull ServerPlayer player, @NotNull SoundType soundType, @NotNull SoundSource soundSource, @NotNull Vec3 position) {}
+```
+Plays the parsed [`SOUND_FEEDBACK_FAIL_ID`](/sies/configuration#sound-feedback-fail-id) (or `sound_feedback_fail_id`) sound privately or publicly (depending on [SoundType](#soundtype)) while respecting the player's choice through [`ENABLE_SOUND_FEEDBACK`](/sies/configuration#enable-sound-feedback) (or `enable_sound_feedback`).
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+SoundUtils.playFailSound(player, soundType, soundSource, player.position());
+```
+
+## `forcePlaySound`
+```java tab="sies >=2.1.0"
+public static void forcePlaySound(@NotNull ServerPlayer player, @NotNull SoundType soundType, @NotNull SoundEvent soundEvent, @NotNull SoundSource soundSource, @NotNull Vec3 position, float volume, float pitch) {}
+```
+Forces to play a sound privately or publicly (depending on [SoundType](#soundtype)) regardless of [`ENABLE_SOUND_FEEDBACK`](/sies/configuration#enable-sound-feedback) (or `enable_sound_feedback`).
+
+### Usage [!toc]
+```java tab="sies >=2.1.0"
+SoundUtils.forcePlaySound(player, soundType, soundEvent, soundSource, player.position(), volume, pitch);
+```
+
+## `playSound`
+<Callout title="Older versions" type="info">
+  Older versions of this method won't be documented anymore since they underwent significant changes in **SI: Essentials** 2.3.0 and the old versions are now considered outdated and should not be used anymore.
+</Callout>
+
+```java tab="sies >=2.3.0"
+public static void playSound(@NotNull ServerPlayer player, @NotNull SoundType soundType, @NotNull SoundEvent soundEvent, @NotNull SoundSource soundSource, @NotNull Vec3 position, float volume, float pitch) {}
+```
+Plays a sound privately or publicly (depending on [SoundType](#soundtype)) while respecting the player's choice through [`ENABLE_SOUND_FEEDBACK`](/sies/configuration#enable-sound-feedback) (or `enable_sound_feedback`).
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+SoundUtils.playSound(player, soundType, soundEvent, soundSource, player.position(), volume, pitch);
+```
+
+## SoundType
+Since **SI: Essentials** 2.3.0, you can specify the SoundType which defines whether the sound should be played privately for the player, in the level at the players position, publicly for all players in the same dimension or publicly across the server.
+
+Those 4 SoundTypes are defined in the `SoundType` enum which is located in the `dev.soncresityindustries.es.api.v0.constant` package. Those enum constants are:
+
+1. `SoundType.PRIVATE` - The sound will only be played for the specified player.
+2. `SoundType.DIMENSION` - The sound will be played in the dimension of the source/player at the specified position and can be heard by all players nearby.
+3. `SoundType.BROADCAST_DIMENSION` - The sound will be played for all players in the same dimension as the specified source/player regardless of their distance.
+4. `SoundType.BROADCAST_SERVER` - The sound will be played for all players on the server regardless of their dimension (providing a source is still required to access all players on the server).

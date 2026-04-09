@@ -1,0 +1,44 @@
+---
+title: Placeholders
+description: "Explanation of the Placeholder API"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+
+<Callout title="Information" type="info">
+  Placeholders were first introduced in Version `2.3.0` of **SI: Essentials**. They do not work in versions below `2.3.0`.
+</Callout>
+
+Placeholders can be used to display dynamic information in various places, such as in the GUI or in chat messages.
+
+They are always enclosed in percentage signs (`%`) and can be used in any string that supports them. (This doesn't mean that they will work in every string/message)
+
+## List of Placeholders
+* `%player_name%` = Local player name
+* `%modpack_name%` = Modpack name (Provided by Modpack Authors)
+* `%modpack_version%` = Modpack version (Provided by Modpack Authors)
+* `%modpack_author%` = Modpack author (Provided by Modpack Authors)
+* `%world_name% ` = World name
+* `%server_name% ` = Server name or IP if no name is provided
+* `%connection_name%` Either singleplayer world name, server name or IP if no server name is provided
+* `%gamemode%` = Current player gamemode
+* `%difficulty%` = Current difficulty
+* `%fps%` = Current FPS
+* `%tps%`= Current TPS
+* `%ping%` = Current ping
+* `%ram_used%` = Currently used RAM
+* `%ram_max%` = Max RAM for the instance
+* `%ram_percentage_unused%` = Percentage of RAM used
+* `%ram_percentage_used%` = Percentage of RAM unused
+* `%biome%` = Current biome
+* `%dimension%` = Current dimension
+* `%coordinate_x%` = Current X coordinate
+* `%coordinate_y%` = Current Y coordinate
+* `%coordinate_z%` = Current Z coordinate
+* `%time%` = In-game time of day
+* `%real_time%` = Real time of day
+* `%player_count%` = Current player count, always 1 in singleplayer
+* `%game_version%` = Current Minecraft version
+* `%sies_version% ` = Current SI: Essentials version
+* `%connection_type%` = Current conneciton type, has Singlplayer, Multiplayer and LAN
+* `%loader%` = Current Modloader, so Fabric or NeoForge

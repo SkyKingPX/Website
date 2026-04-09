@@ -1,0 +1,27 @@
+---
+title: "Slots"
+description: "A collection of slots that can be used for various purposes, such as custom inventories or GUIs"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+There are currently 4 different Slot presets available in SI: Essentials, which can be used for various purposes, such as custom inventories or GUIs.
+All of them are configured to have different properties (self-explanatory names) and support playing a sound when interacted with.
+
+In general, it is recommended to extend from the available Slot classes and override their methods to create your own custom Slots with custom functionality but for simple ones such as LockedCancelSlot (which closes the GUI) this is not required.
+It is possible to configure or disable the sounds in each Slot through their constructors.
+
+## Available Slot Presets
+<Cards>
+  <Card icon={<Ban color="#026DCA"/>} href="/sies/develop/utils/slots/locked-cancel-slot" title="Locked Cancel Slot">
+    A locked slot that closes the current GUI and plays the click sound from the SI: Essentials Common Cnfg by default
+  </Card>
+  <Card icon={<CircleCheck color="#026DCA"/>} href="/sies/develop/utils/slots/locked-confirm-slot" title="Locked Confirm Slot">
+    A locked slot that can execute code when clicked and plays the success sound from the SI: Essentials Common Cnfg by default
+  </Card>
+  <Card icon={<CircleXIcon color="#026DCA"/>} href="/sies/develop/utils/slots/locked-slot" title="Locked Slot">
+    A locked slot that doesn't allow any interactions with it and plays the fail sound from the SI: Essentials Common Cnfg by default
+  </Card>
+  <Card icon={<CircleMinus color="#026DCA"/>} href="/sies/develop/utils/slots/remove-on-click-slot" title="Remove on Click Slot">
+    A slot that removes its current item when clicked and plays the click sound from the SI: Essentials Common Cnfg by default. New items placed inside of it won't be consumed
+  </Card>
+</Cards>

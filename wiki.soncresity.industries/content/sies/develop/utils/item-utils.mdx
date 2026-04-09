@@ -12,8 +12,9 @@ modrinthUrl: https://modrinth.com/mod/sies
 The Item Utilities class allows you parse Items and Item Stacks from Strings or vice versa.
 
 # Class
-File: `ItemUtils.java`  
-Package: `dev.soncresityindustries.es.api.util`
+File: `ItemUtils.java`
+
+Package: `dev.soncresityindustries.es.api.v0.util`
 
 # Methods
 ## `getItemOrDefault`
@@ -28,7 +29,10 @@ Item item = ItemUtils.getItemOrDefault(itemID, defaultItem);
 ```
 
 ## `getItem` (from `String`)
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static Item getItem(@NotNull String itemID) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static Item getItem(String itemID) {}
 ```
 Returns the parsed `Item` from the `itemID`.
@@ -40,14 +44,19 @@ Item item = ItemUtils.getItem(itemID, defaultItem);
 ```
 
 ## `getItem` (from `Identifier` / `ResourceLocation`) [#getitem-from-identifier-or-resourcelocation]
-```java tab="sies >=2.1.0 & MC >=1.21.11"
+```java tab="sies >=2.3.0 & MC >=1.21.11"
+public static Item getItem(@NotNull Identifier identifier) {}
+```
+```java tab="sies >=2.3.0 & MC <1.21.11"
+public static Item getItem(@NotNull ResourceLocation resourceLocation) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0 & MC >=1.21.11"
 public static Item getItem(Identifier identifier) {}
 ```
-```java tab="sies >=2.1.0 & MC <1.21.11"
+```java tab="sies <=2.2.2 & >=2.1.0 & MC <1.21.11"
 public static Item getItem(ResourceLocation resourceLocation) {}
 ```
 Returns the parsed `Item` from the `itemID`.
-Throws `NoSuchElementException` if the item can't be parsed.
 
 ### Usage [!toc]
 ```java tab="sies >=2.1.0 & MC >=1.21.11"
@@ -58,11 +67,14 @@ Item item = ItemUtils.getItem(resourceLocation);
 ```
 
 <Callout title="Tip" type="idea">
-  You can use `Identifier.fromNamespaceAndPath(\<ID (String)>)` **(MC >=1.21.11)** / `ResourceLocation.fromNamespaceAndPath(\<ID (String)>)` **(MC \<1.21.11)** as an input as well.
+  You can use `Identifier.fromNamespaceAndPath(<ID (String)>)` **(MC >=1.21.11)** / `ResourceLocation.fromNamespaceAndPath(<ID (String)>)` **(MC \<1.21.11)** as an input as well.
 </Callout>
 
 ## `getItemStackOrDefault` (with `count`)
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static ItemStack getItemStackOrDefault(@NotNull String itemID, int count, @NotNull ItemStack defaultItemStack) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static ItemStack getItemStackOrDefault(String itemID, int count, @NotNull ItemStack defaultItemStack) {}
 ```
 Returns the `defaultItemStack` value if the method runs into an error (e.g. `itemID` does not match an Item in Minecraft) otherwise returns the parsed `ItemStack` with the provided `count` amount.
@@ -73,7 +85,10 @@ ItemStack itemStack = ItemUtils.getItemStackOrDefault(itemID, count, defaultItem
 ```
 
 ## `getItemStackOrDefault`
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static ItemStack getItemStackOrDefault(@NotNull String itemID, @NotNull ItemStack defaultItemStack) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static ItemStack getItemStackOrDefault(String itemID, @NotNull ItemStack defaultItemStack) {}
 ```
 Returns the `defaultItemStack` value if the method runs into an error (e.g. `itemID` does not match an Item in Minecraft) otherwise returns the parsed `ItemStack` with the **amount of 1**.
@@ -85,11 +100,13 @@ ItemStack itemStack = ItemUtils.getItemStackOrDefault(itemID, defaultItemStack);
 ```
 
 ## `getItemStack` (with `count`)
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static ItemStack getItemStack(@NotNull String itemID, int count) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static ItemStack getItemStack(String itemID, int count) {}
 ```
 Returns the parsed `ItemStack` from the `itemID` with the **amount of 1**.
-Throws `NoSuchElementException` if the item can't be parsed.
 
 ### Usage [!toc]
 ```java tab="sies >=2.1.0"
@@ -97,12 +114,14 @@ ItemStack itemStack = ItemUtils.getItemStack(itemID, count);
 ```
 
 ## `getItemStack`
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static ItemStack getItemStack(@NotNull String itemID) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static ItemStack getItemStack(String itemID) {}
 ```
 Returns the `defaultItemStack` value if the method runs into an error (e.g. `itemID` does not match an Item in Minecraft) otherwise returns the parsed `ItemStack` with the **amount of 1**.
 Refer to [`getItemStack` (with `count`)](#getitemstack-with-count) to customize the returned amount of items in the `ItemStack`.
-Throws `NoSuchElementException` if the item can't be parsed.
 
 ### Usage [!toc]
 ```java tab="sies >=2.1.0"
@@ -110,7 +129,10 @@ ItemStack itemStack = ItemUtils.getItemStack(itemID);
 ```
 
 ## `getItemIDOrDefault` (from `ItemStack`)
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static String getItemIDOrDefault(@NotNull ItemStack itemStack, @NotNull String defaultItemID) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static String getItemIDOrDefault(ItemStack itemStack, @NotNull String defaultItemID) {}
 ```
 Returns the `defaultItemID` value if the method runs into an error otherwise returns the full Item ID of an `ItemStack` as a `String`.
@@ -121,7 +143,10 @@ String itemID = ItemUtils.getItemIDOrDefault(itemStack, defaultItemID);
 ```
 
 ## `getItemIDOrDefault` (from `Item`)
-```java tab="sies >=2.1.0"
+```java tab="sies >=2.3.0"
+public static String getItemIDOrDefault(@NotNull Item item, @NotNull String defaultItemID) {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
 public static String getItemIDOrDefault(Item item, @NotNull String defaultItemID) {}
 ```
 Returns the `defaultItemID` value if the method runs into an error otherwise returns the full Item ID of an `Item` as a `String`.

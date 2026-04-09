@@ -1,0 +1,44 @@
+---
+title: "File Utilities"
+description: "Various utilities for working with files, such as getting file hashes or the minecraft root directory"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+
+<Callout title="Introduction" type="info">
+  A fully functional Version of this class has first been introduced in Version `2.1.0`
+  (Before **SI: Essentials** 2.3.0 known as `FileHashUtils`)
+</Callout>
+
+The File Hash Utilities class allows you get the SHA256 file hash / checksum of a file as a String.
+
+# Class
+File: `FileUtils.java`
+
+Package: `dev.soncresityindustries.es.api.v0.util`
+
+# Methods
+## `getSHA256Checksum`
+```java tab="sies >=2.3.0"
+public static String getSHA256Checksum(@NotNull File file) throws IOException, NoSuchAlgorithmException {}
+```
+```java tab="sies <=2.2.2 & >=2.1.0"
+public static String getSHA256Checksum(File file) throws IOException, NoSuchAlgorithmException {}
+```
+Returns the SHA256 checksum of a file as a String. This can be used to check whether a file has been modified or to compare two files.
+
+### Usage [!toc]
+```java tab="sies >=2.1.0"
+String hash = FileHashUtils.getSHA256Checksum(file);
+```
+
+## `getGameDir`
+```java tab="sies >=2.3.0"
+public static Path getGameDir() {}
+```
+Returns the Minecraft root directory as a `Path`. This can be used to access files in the Minecraft directory.
+
+### Usage [!toc]
+```java tab="sies >=2.3.0"
+Path mcDir = FileUtils.getGameDir();
+```

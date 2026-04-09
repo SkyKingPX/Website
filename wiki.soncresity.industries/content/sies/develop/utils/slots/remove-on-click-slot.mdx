@@ -1,0 +1,135 @@
+---
+title: "Remove on Click Slot"
+description: "A slot that removes its current item when clicked and plays the click sound from the SI: Essentials Common Cnfg by default. New items placed inside of it won't be consumed"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+The `RemoveOnClickSlot` is a slot that removes its current item when clicked and plays the click sound from the SI: Essentials Common Cnfg ([`SOUND_FEEDBACK_CLICK_ID`](/sies/general-configuration#sound-feedback-click-id)) by default.
+By default it is not possible to insert new items into the slot but this can be easily changed by overriding the `clicked` method in your Screen Handler and implementing the desired functionality.
+
+### Example Usage
+<Callout title="SlotUtils Usage" type="info">
+  This example uses the [SlotUtils](/sies/develop/utils/slot-utils) class to position the Slot correctly in the GUI. Currently, the SlotUtils class only supports 6 rows (54 slots) but more will be added in the future.
+</Callout>
+
+In this example, we will create a custom Screen with a row of `RemoveOnClickSlot` Slots. When the slot is clicked, it will remove the current item in the slot and play the click sound from the SI: Essentials Common Cnfg by default. When the slot is empty, new items can be placed inside of it without consuming the original one.
+
+```java tab="Screen Handler" title="MyScreen.java"
+public class MyScreenHandler extends AbstractContainerMenu {
+    private final Container container;
+
+    public MyScreenHandler(MenuType<?> menuType, int syncId, Inventory inv) {
+        super(menuType, syncId);
+        this.container = new SimpleContainer(54); // A simple container with 54 slots (6 rows of 9)
+
+        // Create the item that will be displayed in the locked confirm slot
+        ItemStack item = new ItemStack(Items.GREEN_STAINED_GLASS_PANE);
+        item.set(DataComponents.CUSTOM_NAME, MessageUtils.getDeserializedText("<gray>Item"));
+        item.set(DataComponents.LORE, new ItemLore(List.of(
+                MessageUtils.getDeserializedText("<green>Click to remove this item"),
+                MessageUtils.getDeserializedText("<green>When the slot is empty,"),
+                MessageUtils.getDeserializedText("<green>you can place new items"),
+                MessageUtils.getDeserializedText("<green>inside of it without consuming them")
+        )));
+
+        // Add the remove on click slot to the container
+        for (int i = 0; i < 54; i++) {
+            // Used to calculate the x and y position of the slot in the GUI
+            int x = SlotUtils.getXPos(i);
+            int y = SlotUtils.getYPos(i);
+
+            if (i < 9) { // The first 9 slots (first row)
+                container.setItem(i, item);
+                /* With the Slots multiple constructors, you can easily configure the sound that is played when the slot is interacted with.
+                 * Example:
+                 * RemoveOnClickSlot(container, i, x, y) - Plays the default click sound from the SI: Essentials Common Cnfg when clicked
+                 * RemoveOnClickSlot(container, i, x, y, false) - Disables the sound when clicked
+                 * RemoveOnClickSlot(container, i, x, y, true, SoundType.PRIVATE, SoundSource.MASTER, SoundEvents.LEVER_CLICK, 0.8f, 1.0f) - Plays the lever click sound at volume 0.8 and pitch 1.0 for the player that clicked the slot
+                 */
+                this.addSlot(new RemoveOnClickSlot(container, i, x, y));
+                continue; // Skip the rest of this loop iteration
+            }
+
+            // Fill up other slots (will break the GUI if not not all slots are filled up)
+            // You could set this to ItemStack.EMPTY
+            container.setItem(i, new ItemStack(Items.BLACK_STAINED_GLASS_PANE));
+            // The locked slot doesn't allow any interactions with it (Read more about it on its page)
+            this.addSlot(new LockedSlot(container, i, x, y));
+        }
+    }
+
+    // To implement the functionality we want, we also need to override the clicked method:
+    @Override
+    public void clicked(int slotId, int button, ClickType clickType, Player player) {
+        if (slotId >= 0 && slotId < this.slots.size()) {
+            Slot slot = this.slots.get(slotId);
+
+            if (slot instanceof RemoveOnClickSlot) {
+                ItemStack carried = this.getCarried();
+
+                // Slot has item + cursor empty -> clear
+                if (!slot.getItem().isEmpty() && carried.isEmpty()) {
+                    slot.set(ItemStack.EMPTY);
+                    slot.setChanged();
+                    return;
+                }
+
+                // Slot empty + cursor has item -> insert 1
+                if (slot.getItem().isEmpty() && !carried.isEmpty()) {
+                    ItemStack one = carried.copy();
+                    one.setCount(1);
+
+                    slot.set(one);
+                    slot.setChanged();
+                    return;
+                }
+                return;
+            }
+        }
+
+        super.clicked(slotId, button, clickType, player);
+    }
+
+    // Disallow quick moving items
+    @Override
+    public ItemStack quickMoveStack(Player player, int i) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return true;
+    }
+}
+```
+```java tab="Screen registration" title="ModScreens.java"
+public class ModScreens {
+    // Method to open the Screen/GUI
+    public static void openMyScreen(ServerPlayer player) {
+        player.openMenu(new MenuProvider() {
+            @Override
+            public Component getDisplayName() {
+                // This return statement also supports MessageUtils.getDeserializedText() if you want colors in your Screen title!
+                return Component.literal("My Custom Screen");
+            }
+
+            @Override
+            public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player playerEntity) {
+                MyMod.LOGGER.debug("Opening my custom screen for player " + playerEntity.getName().getString());
+                // At the moment, MenuType.GENERIC_9x6 is the only supported MenuType for custom Screens but more support will be added in the future.
+                return new MyScreenHandler(MenuType.GENERIC_9x6, syncId, inv);
+            }
+        });
+    }
+
+    // Registering the Screen/GUI
+    public static final MenuType<MyScreenHandler> RECIPE_EDITOR =
+            new MenuType<>((syncId, inv) -> new MyScreenHandler(MenuType.GENERIC_9x6, syncId, inv),
+                    net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS);
+
+    // Call this method in your Mod's initialization code
+    public static void register() {}
+}
+```
+
+With this setup, you will have a slot in the first 9 slots of your GUI that holds items which which can be removed by clicking on them. Additionally new items can be inserted without consuming the original one and on each click the click sound will be played.

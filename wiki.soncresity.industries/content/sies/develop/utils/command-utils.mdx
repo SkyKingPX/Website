@@ -12,22 +12,55 @@ modrinthUrl: https://modrinth.com/mod/sies
 The Command Utilities class allows you to execute commands as a player while being able to customize the permissions, position and rotation.
 
 # Class
-File: `CommandUtils.java`  
-Package: `dev.soncresityindustries.es.api.util`
+File: `CommandUtils.java`
+
+Package: `dev.soncresityindustries.es.api.v0.util`
 
 # Methods
-## `executeCommands`
-```java tab="sies >=2.2.0 & MC >=1.21.11"
+<Callout title="Important information" type="info">
+  Arguments enclosed in square brackets (`[]`) are optional, however, this is not common java syntax!
+</Callout>
+
+## `executeCommands` (`ServerPlayer` source)
+```java tab="sies >=2.3.0 & MC >=1.21.11"
+public static void executeCommands(@NotNull List<String> commands, @NotNull ServerPlayer player, @NotNull PermissionSet permissionSet, [@NotNull Vec3 position], [@NotNull Vec2 rotation]) {}
+```
+```java tab="sies >=2.3.0 & MC <1.21.11"
+public static void executeCommands(@NotNull List<String> commands, @NotNull ServerPlayer player, int permissionLevel, [@NotNull Vec3 position], [@NotNull Vec2 rotation]) {}
+```
+```java tab="sies <=2.2.2 & MC >=1.21.11"
 public static void executeCommands(List<String> commands, ServerPlayer player, PermissionSet permissionSet, Vec3 position, Vec2 rotation) {}
 ```
-```java tab="sies >=2.2.0 & MC <1.21.11"
+```java tab="sies <=2.2.2 & MC <1.21.11"
 public static void executeCommands(List<String> commands, ServerPlayer player, int permissionLevel, Vec3 position, Vec2 rotation) {}
 ```
 
 ### Usage [!toc]
-```java tab="sies >=2.2.0 & MC >=1.21.11"
+```java tab="sies >=2.3.0 & MC >=1.21.11"
 CommandUtils.executeCommands(commands, player, PermissionSet.ALL_PERMISSIONS, player.position(), player.rotation());
 ```
-```java tab="sies >=2.2.0 & MC <1.21.11"
+```java tab="sies >=2.3.0 & MC <1.21.11"
 CommandUtils.executeCommands(commands, player, permissionLevel, player.position(), player.rotation());
+```
+```java tab="sies <=2.2.2 & MC >=1.21.11"
+CommandUtils.executeCommands(commands, player, PermissionSet.ALL_PERMISSIONS, [player.position()], [player.rotation()]);
+```
+```java tab="sies <=2.2.2 & MC <1.21.11"
+CommandUtils.executeCommands(commands, player, permissionLevel, [player.position()], [player.rotation()]);
+```
+
+## `executeCommands` (`MinecraftServer` source)
+```java tab="sies >=2.3.0 & MC >=1.21.11"
+public static void executeCommands(@NotNull List<String> commands, @NotNull MinecraftServer server, @NotNull PermissionSet permissionSet, [@NotNull Vec3 position], [@NotNull Vec2 rotation]) {}
+```
+```java tab="sies >=2.3.0 & MC <1.21.11"
+public static void executeCommands(@NotNull List<String> commands, @NotNull MinecraftServer server, int permissionLevel, [@NotNull Vec3 position], [@NotNull Vec2 rotation]) {}
+```
+
+### Usage [!toc]
+```java tab="sies >=2.3.0 & MC >=1.21.11"
+CommandUtils.executeCommands(commands, server, PermissionSet.ALL_PERMISSIONS, [player.position()], [player.rotation()]);
+```
+```java tab="sies >=2.3.0 & MC <1.21.11"
+CommandUtils.executeCommands(commands, server, permissionLevel, [player.position()], [player.rotation()]);
 ```

@@ -10,6 +10,16 @@ SI: Essentials offers many useful features for developers, such as Utility class
 All of those features are designed to work on both Fabric and NeoForge in the same way to achieve the best possible experience.  
 If this is not the case, you will see a notice at the top of the page.
 
+<Callout title="API Changes" type="warning">
+  Classes and Utilities in the `dev.soncresityindustries.es.api.v0` package are **experimental** and may be changed in any update. As soon as they are stable/finished, they will be moved into the latest API package.
+
+  Classes and Utilities in `v1`, `v2`, etc. packages are stable and will only be changed rarely. If there is a new change, it will move to a newer API package to prevent mods depending on different versions of **SI: Essentials** from breaking.
+
+  At some point announcements will be made that old, deprecated API packages will be removed in (a) future update(s). This may happen due to their contents being heavily outdated, broken or exploitable.
+
+  Thank you for your understanding and support.
+</Callout>
+
 # Getting Started
 ## Adding the dependency
 <Callout title="Maven repo" type="info">
@@ -24,89 +34,137 @@ If this is not the case, you will see a notice at the top of the page.
 </Callout>
 
 #### Gradle dependency [#fabric-gradle-dependency]
-```groovy tab="2.2.2-1.21.11"
+```groovy tab="2.3.0-1.21.11" title="build.gradle / build.gradle.kts"
 // Groovy
-modImplementation "curse.maven:sies-1306319:7743435"
+modImplementation "curse.maven:sies-1306319:"
 modImplementation "net.fabricmc.fabric-api:fabric-api:0.141.2+1.21.11"
 
 // Kotlin
-modImplementation("curse.maven:sies-1306319:7743435")
+modImplementation("curse.maven:sies-1306319:")
 modImplementation("net.fabricmc.fabric-api:fabric-api:0.141.2+1.21.11")
 ```
-```groovy tab="2.2.2-1.21.10"
+```groovy tab="2.3.0-1.21.10" title="build.gradle / build.gradle.kts"
 // Groovy
-modImplementation "curse.maven:sies-1306319:7743434"
+modImplementation "curse.maven:sies-1306319:"
 modImplementation "net.fabricmc.fabric-api:fabric-api:0.138.4+1.21.10"
 
 // Kotlin
-modImplementation("curse.maven:sies-1306319:7743434")
+modImplementation("curse.maven:sies-1306319:")
 modImplementation("net.fabricmc.fabric-api:fabric-api:0.138.4+1.21.10")
 ```
-```groovy tab="2.2.2-1.21.8"
+```groovy tab="2.3.0-1.21.8" title="build.gradle / build.gradle.kts"
 // Groovy
-modImplementation "curse.maven:sies-1306319:7743432"
+modImplementation "curse.maven:sies-1306319:"
 modImplementation "net.fabricmc.fabric-api:fabric-api:0.136.1+1.21.8"
 
 // Kotlin
-modImplementation("curse.maven:sies-1306319:7743432")
+modImplementation("curse.maven:sies-1306319:")
 modImplementation("net.fabricmc.fabric-api:fabric-api:0.136.1+1.21.8")
+```
+```groovy tab="2.3.0-1.21.4" title="build.gradle / build.gradle.kts"
+// Groovy
+modImplementation "curse.maven:sies-1306319:"
+modImplementation "net.fabricmc.fabric-api:fabric-api:0.119.4+1.21.4"
+
+// Kotlin
+modImplementation("curse.maven:sies-1306319:")
+modImplementation("net.fabricmc.fabric-api:fabric-api:0.119.4+1.21.4")
+```
+```groovy tab="2.3.0-1.21.1" title="build.gradle / build.gradle.kts"
+// Groovy
+modImplementation "curse.maven:sies-1306319:"
+modImplementation "net.fabricmc.fabric-api:fabric-api:0.116.9+1.21.1"
+
+// Kotlin
+modImplementation("curse.maven:sies-1306319:")
+modImplementation("net.fabricmc.fabric-api:fabric-api:0.116.9+1.21.1")
 ```
 
 #### `fabric.mods.json`
-```json tab="2.2.2-1.21.11"
+```json tab="2.3.0-1.21.11" title="fabric.mods.json"
 "depends": {
   "fabricloader": ">=0.18",
   "minecraft": "1.21.11",
   "fabric-api": ">=0.141.2+1.21.11",
-  "sies": "2.2.2"
+  "sies": "2.3.0"
 }
 ```
-```json tab="2.2.2-1.21.10"
+```json tab="2.3.0-1.21.10" title="fabric.mods.json"
 "depends": {
   "fabricloader": ">=0.18",
   "minecraft": "1.21.10",
   "fabric-api": ">=0.138.4+1.21.10",
-  "sies": "2.2.2"
+  "sies": "2.3.0"
 }
 ```
-```json tab="2.2.2-1.21.8"
+```json tab="2.3.0-1.21.8" title="fabric.mods.json"
 "depends": {
   "fabricloader": ">=0.18",
   "minecraft": "1.21.8",
   "fabric-api": ">=0.136.1+1.21.8",
-  "sies": "2.2.2"
+  "sies": "2.3.0"
+}
+```
+```json tab="2.3.0-1.21.4" title="fabric.mods.json"
+"depends": {
+  "fabricloader": ">=0.18",
+  "minecraft": "1.21.4",
+  "fabric-api": ">=0.136.1+1.21.8",
+  "sies": "2.3.0"
+}
+```
+```json tab="2.3.0-1.21.1" title="fabric.mods.json"
+"depends": {
+  "fabricloader": ">=0.18",
+  "minecraft": "1.21.1",
+  "fabric-api": ">=0.136.1+1.21.8",
+  "sies": "2.3.0"
 }
 ```
 ### NeoForge
 #### Gradle dependency [#neoforge-gradle-dependency]
-```groovy tab="2.2.2-1.21.11"
+```groovy tab="2.3.0-1.21.11" title="build.gradle / build.gradle.kts"
 // Groovy
-modImplementation "curse.maven:sies-1306319:7743431"
+modImplementation "curse.maven:sies-1306319:"
 
 // Kotlin
-modImplementation("curse.maven:sies-1306319:7743431")
+modImplementation("curse.maven:sies-1306319:")
 ```
-```groovy tab="2.2.2-1.21.10"
+```groovy tab="2.3.0-1.21.10" title="build.gradle / build.gradle.kts"
 // Groovy
-modImplementation "curse.maven:sies-1306319:7743428"
+modImplementation "curse.maven:sies-1306319:"
 
 // Kotlin
-modImplementation("curse.maven:sies-1306319:7743428")
+modImplementation("curse.maven:sies-1306319:")
 ```
-```groovy tab="2.2.2-1.21.8"
+```groovy tab="2.3.0-1.21.8" title="build.gradle / build.gradle.kts"
 // Groovy
-modImplementation "curse.maven:sies-1306319:7743426"
+modImplementation "curse.maven:sies-1306319:"
 
 // Kotlin
-modImplementation("curse.maven:sies-1306319:7743426")
+modImplementation("curse.maven:sies-1306319:")
+```
+```groovy tab="2.3.0-1.21.4" title="build.gradle / build.gradle.kts"
+// Groovy
+modImplementation "curse.maven:sies-1306319:"
+
+// Kotlin
+modImplementation("curse.maven:sies-1306319:")
+```
+```groovy tab="2.3.0-1.21.1" title="build.gradle / build.gradle.kts"
+// Groovy
+modImplementation "curse.maven:sies-1306319:"
+
+// Kotlin
+modImplementation("curse.maven:sies-1306319:")
 ```
 
 #### `neoforge.mods.toml`
-```toml
+```toml title="neoforge.mods.toml"
 [[dependencies.your_mod_id]]
 modId="sies"
 type="required"
-versionRange="2.2.2"
+versionRange="2.3.0"
 ordering="AFTER"
 side="BOTH"
 ```
@@ -114,7 +172,6 @@ side="BOTH"
 # Next steps
 For your next steps, we recommend setting up our custom [Logger](/sies/develop/logger) and (re)writing your configs using the [Configuration API](/sies/develop/configuration-api).  
 If you run into any issues, need help setting everything up, or don't understand something, don't hesitate to message us on [Discord](https://soncresity.industries/discord) ~~or create a ticket on our Support page~~ *(Coming soon)*.
-
 
 <Cards>
   <Card icon={<File color="#026DCA"/>} href="/sies/develop/logger" title="Logger">

@@ -24,6 +24,7 @@ next-env.d.ts
 # Misc
 .DS_Store
 *.pem
+/.source
 
 # Debug
 npm-debug.log*
@@ -53,5 +54,4 @@ yarn-error.log*
 *~
 
 # OS
-.DS_Store
 Thumbs.db

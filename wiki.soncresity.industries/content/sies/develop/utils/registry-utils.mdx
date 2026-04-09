@@ -16,30 +16,30 @@ modrinthUrl: https://modrinth.com/mod/sies
 The Registry Utilities class makes the process of registering Items and Blocks easier by providing useful helper methods.
 
 <Callout title="Warning" type="warn">
-  An error was made in versions below 2.2.2 where you could only use the RegistryUtils to register items and blocks to SI: Essentials itself and not to your own mod.  
-  This has been fixed in Version 2.2.2 by introducing a new `modid` argument to each Method.
+  An error was made in versions below 2.3.0 where you could only use the RegistryUtils to register items and blocks to SI: Essentials itself and not to your own mod.
+  This has been fixed in Version 2.3.0 by introducing a new `modid` argument to each Method.
 </Callout>
 
 # Class
-File: `RegistryUtils.java`  
-Package: `dev.soncresityindustries.es.api.util`
+File: `RegistryUtils.java`
+
+Package: `dev.soncresityindustries.es.api.v0.util`
 
 # Methods
 ## `registerBlock`
-```java tab="sies >=2.2.0-fabric \<2.2.2-fabric"
-public static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> function, boolean registerBlockItem, boolean fireResistant, boolean explosionResistant) {}
-```
-```java tab="sies >=2.2.2-fabric"
+```java tab="sies >=2.3.0-fabric"
 public static Block registerBlock(@NotNull String modid, @NotNull String name, @NotNull Function<BlockBehaviour.Properties, Block> function, boolean registerBlockItem, boolean fireResistant, boolean explosionResistant) {}
-
+```
+```java tab="sies <=2.2.2-fabric & >=2.2.0-fabric"
+public static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> function, boolean registerBlockItem, boolean fireResistant, boolean explosionResistant) {}
 ```
 
 ### Usage [!toc]
-```java tab="sies >=2.2.0-fabric \<2.2.2-fabric"
-public static final Block MY_BLOCK = RegistryUtils.registerBlock("my_block", props -> new Block(props), registerBlockItem, fireResistant, explosionResistant);
-```
-```java tab="sies >=2.2.2-fabric"
+```java tab="sies >=2.3.0-fabric"
 public static final Block MY_BLOCK = RegistryUtils.registerBlock(MyMod.MODID, "my_block", props -> new Block(props), registerBlockItem, fireResistant, explosionResistant);
+```
+```java tab="sies <=2.2.2-fabric & >=2.2.0-fabric"
+public static final Block MY_BLOCK = RegistryUtils.registerBlock("my_block", props -> new Block(props), registerBlockItem, fireResistant, explosionResistant);
 ```
 
 ## `registerBlockItem`
@@ -47,33 +47,33 @@ public static final Block MY_BLOCK = RegistryUtils.registerBlock(MyMod.MODID, "m
   This method should usually only be used within the [`registerBlock`](#registerblock) method by providing the `registerBlockItem` boolean
 </Callout>
 
-```java tab="sies >=2.2.0-fabric \<2.2.2-fabric"
-public static void registerBlockItem(String name, Block block, boolean fireResistant, boolean explosionResistant) {}
-```
-```java tab="sies >=2.2.2-fabric"
+```java tab="sies >=2.3.0-fabric"
 public static void registerBlockItem(@NotNull String modid, @NotNull String name, @NotNull Block block, boolean fireResistant, boolean explosionResistant) {}
+```
+```java tab="sies <=2.2.2-fabric & >=2.2.0-fabric"
+public static void registerBlockItem(String name, Block block, boolean fireResistant, boolean explosionResistant) {}
 ```
 
 ### Usage [!toc]
-```java tab="sies >=2.2.0-fabric \<2.2.2-fabric"
-RegistryUtils.registerBlockItem("my_block", block, fireResistant, explosionResistant);
-```
-```java tab="sies >=2.2.2-fabric"
+```java tab="sies >=2.3.0-fabric"
 RegistryUtils.registerBlockItem(MyMod.MODID, "my_block", block, fireResistant, explosionResistant);
+```
+```java tab="sies <=2.2.2-fabric & >=2.2.0-fabric"
+RegistryUtils.registerBlockItem("my_block", block, fireResistant, explosionResistant);
 ```
 
 ## `registerItem`
-```java tab="sies >=2.2.0-fabric \<2.2.2-fabric"
-public static Item registerItem(String name, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {}
-```
-```java tab="sies >=2.2.2-fabric"
+```java tab="sies >=2.3.0-fabric"
 public static Item registerItem(@NotNull String name, @NotNull Function<Item.Properties, Item> itemFactory, @NotNull Item.Properties settings) {}
+```
+```java tab="sies <=2.2.2-fabric & >=2.2.0-fabric"
+public static Item registerItem(String name, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {}
 ```
 
 ### Usage [!toc]
-```java tab="sies >=2.2.0-fabric \<2.2.2-fabric"
-public static final Item MY_ITEM = RegistryUtils.registerItem("my_item", Item::new, new Item.Properties());
-```
-```java tab="sies >=2.2.2-fabric"
+```java tab="sies >=2.3.0-fabric"
 public static final Item MY_ITEM = RegistryUtils.registerItem(MyMod.MODID, "my_item", Item::new, new Item.Properties());
+```
+```java tab="sies <=2.2.2-fabric & >=2.2.0-fabric"
+public static final Item MY_ITEM = RegistryUtils.registerItem("my_item", Item::new, new Item.Properties());
 ```

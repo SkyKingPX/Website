@@ -8,13 +8,13 @@ modrinthUrl: https://modrinth.com/mod/sies
 # Cnfg
 ## `CLIENT`
 The `CLIENT` configuration Type is mostly used for client-side settings that are not related to gameplay. (e.g. UI settings)
-- Will only generate on the client side in `<mcRoot>/config/`.  
+- Will only generate on the client side in `mcRoot/config/`.
 - Configuration Instance will be `null` on dedicated servers.
 
 Registering this type of config is recommended to be done in the Mod's client classes:
 ### Fabric
 #### `MyModClient`
-```java tab="sies >=2.2.0"
+```java tab="sies >=2.2.0" title="MyModClient.java"
 public class MyModClient implements ClientModInitializer {
     @Override
     public void onClientInitialize() {
@@ -24,7 +24,7 @@ public class MyModClient implements ClientModInitializer {
 ```
 
 #### `fabric.mod.json`
-```json
+```json title="fabric.mod.json"
 {
   "entrypoints": {
     "client": [
@@ -36,7 +36,7 @@ public class MyModClient implements ClientModInitializer {
 
 ### NeoForge
 #### `MyModClient`
-```java tab="sies >=2.2.0"
+```java tab="sies >=2.2.0" title="MyModClient.java"
 @Mod(value = MyMod.MODID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = MyMod.MODID, value = Dist.CLIENT)
 public class MyModClient {
@@ -49,13 +49,13 @@ public class MyModClient {
 
 ## `COMMON`
 The `COMMON` configuration Type is used for general configurations that apply globally on a client **and** dedicated server. 
-- Will generate in `<mcRoot>/config/`.  
+- Will generate in `mcRoot/config/`.
 - When a client joins a dedicated server, the configuration of the server will be used.
 
 ## `SERVER`
 The `SERVER` configuration Type is used for **world-specific** configurations that can be set for **each world**.  
 A configuration with the `SERVER` type will still be created on both the client and server, but only on world load!  
-- Will generate in `<mcRoot>/saves/<world>/` (Client) or `<serverRoot>/<world>/` (Server).  
+- Will generate in `mcRoot/saves/<world>/` (Client) or `<serverRoot>/<world>/` (Server).
 
 # Objt
 *Currently in development*

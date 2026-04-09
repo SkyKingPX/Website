@@ -5,5 +5,5 @@
   "icon": "/logos/sies.png",
   "collapsible": false,
   "defaultOpen": true,
-  "pages": ["---General---", "index", "general-configuration", "---Remover Module---", "remover", "configuration", "---Development---", "develop", "logger", "file-formats", "configuration-api", "utils", "..."]
+  "pages": ["---General---", "index", "general-configuration", "placeholders", "remover", "configuration", "ui", "configuration", "---Modpack Authors---", "info-modpack-authors", "---Development---", "develop", "logger", "placeholder-api", "file-formats", "configuration-api", "utils", "..."]
 }

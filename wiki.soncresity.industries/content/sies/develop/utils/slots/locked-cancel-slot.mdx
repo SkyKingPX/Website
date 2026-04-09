@@ -1,0 +1,97 @@
+---
+title: "Locked Cancel Slot"
+description: "A locked slot that closes the current GUI and plays the click sound from the SI: Essentials Common Cnfg by default"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+The locked cancel slot is very straight forward, it doesn't allow any interactions with it and when clicked it will close the current GUI and play the click sound from the SI: Essentials Common Cnfg ([`SOUND_FEEDBACK_CLICK_ID`](/sies/general-configuration#sound-feedback-click-id)) by default.
+
+### Example Usage
+<Callout title="SlotUtils Usage" type="info">
+  This example uses the [SlotUtils](/sies/develop/utils/slot-utils) class to position the Slot correctly in the GUI. Currently, the SlotUtils class only supports 6 rows (54 slots) but more will be added in the future.
+</Callout>
+
+```java tab="Screen Handler" title="MyScreen.java"
+public class MyScreenHandler extends AbstractContainerMenu {
+    private final Container container;
+
+    public MyScreenHandler(MenuType<?> menuType, int syncId, Inventory inv) {
+        super(menuType, syncId);
+        this.container = new SimpleContainer(54); // A simple container with 54 slots (6 rows of 9)
+
+        // Create the item that will be displayed in the locked cancel slot
+        ItemStack cancel = new ItemStack(SrpxItems.CANCEL_ITEM);
+        cancel.set(DataComponents.CUSTOM_NAME, MessageUtils.getDeserializedText("<dark_red><b><u>Cancel"));
+        cancel.set(DataComponents.LORE, new ItemLore(List.of(
+                MessageUtils.getDeserializedText("<red>Click to <b>close</b> this menu")
+        )));
+
+        // Add the locked cancel slot to the container
+        for (int i = 0; i < 54; i++) {
+            // Used to calculate the x and y position of the slot in the GUI
+            int x = SlotUtils.getXPos(i);
+            int y = SlotUtils.getYPos(i);
+
+            if (i == 53) { // The last slot in the GUI (bottom right corner)
+                container.setItem(i, cancel);
+                /* With the Slots multiple constructors, you can easily configure the sound that is played when the slot is interacted with.
+                 * Example:
+                 * LockedCancelSlot(container, i, x, y) - Plays the default click sound from the SI: Essentials Common Cnfg when clicked
+                 * LockedCancelSlot(container, i, x, y, false) - Disables the sound when clicked
+                 * LockedCancelSlot(container, i, x, y, true, SoundType.PRIVATE, SoundSource.MASTER, SoundEvents.LEVER_CLICK, 0.8f, 1.0f) - Plays the lever click sound at volume 0.8 and pitch 1.0 for the player that clicked the slot
+                 */
+                this.addSlot(new LockedCancelSlot(container, i, x, y));
+                continue; // Skip the rest of this loop iteration
+            }
+
+            // Fill up other slots (will break the GUI if not not all slots are filled up)
+            // You could set this to ItemStack.EMPTY
+            container.setItem(i, new ItemStack(Items.BLACK_STAINED_GLASS_PANE));
+            // The locked slot doesn't allow any interactions with it (Read more about it on its page)
+            this.addSlot(new LockedSlot(container, i, x, y));
+        }
+    }
+
+    // Disallow quick moving items
+    @Override
+    public ItemStack quickMoveStack(Player player, int i) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return true;
+    }
+}
+```
+```java tab="Screen registration" title="ModScreens.java"
+public class ModScreens {
+    // Method to open the Screen/GUI
+    public static void openMyScreen(ServerPlayer player) {
+        player.openMenu(new MenuProvider() {
+            @Override
+            public Component getDisplayName() {
+                // This return statement also supports MessageUtils.getDeserializedText() if you want colors in your Screen title!
+                return Component.literal("My Custom Screen");
+            }
+
+            @Override
+            public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player playerEntity) {
+                MyMod.LOGGER.debug("Opening my custom screen for player " + playerEntity.getName().getString());
+                // At the moment, MenuType.GENERIC_9x6 is the only supported MenuType for custom Screens but more support will be added in the future.
+                return new MyScreenHandler(MenuType.GENERIC_9x6, syncId, inv);
+            }
+        });
+    }
+
+    // Registering the Screen/GUI
+    public static final MenuType<MyScreenHandler> RECIPE_EDITOR =
+            new MenuType<>((syncId, inv) -> new MyScreenHandler(MenuType.GENERIC_9x6, syncId, inv),
+                    net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS);
+
+    // Call this method in your Mod's initialization code
+    public static void register() {}
+}
+```
+
+With this setup, you will have a locked cancel slot in the bottom right corner of your GUI that closes the GUI and plays the click sound from the SI: Essentials Common Cnfg ([`SOUND_FEEDBACK_CLICK_ID`](/sies/general-configuration#sound-feedback-click-id)) when clicked.

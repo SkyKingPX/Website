@@ -1,0 +1,191 @@
+---
+title: "Locked Confirm Slot"
+description: "A locked slot that can execute code when clicked and plays the success sound from the SI: Essentials Common Cnfg by default"
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/sies
+modrinthUrl: https://modrinth.com/mod/sies
+---
+The locked confrim slot is a bit more complicated than the cancel slot as you need to define your own logic by extending it. It has the same constructors as the locked (cancel) slot so you can also implement the same sound functionality if you want to.
+
+### Default Behavior
+```java tab="sies >=2.3.0" title="LockedConfirmSlot.java"
+public class LockedConfirmSlot extends Slot {
+    public final boolean shouldPlaySound;
+    public final SoundType soundType;
+    public final SoundSource soundSource;
+    public final SoundEvent soundEvent;
+    public final float volume;
+    public final float pitch;
+
+    public LockedConfirmSlot(@NotNull Container container, int index, int x, int y, boolean shouldPlaySound, @Nullable SoundType soundType, @Nullable SoundSource soundSource, @Nullable SoundEvent soundEvent, float volume, float pitch) {
+        super(container, index, x, y);
+        this.shouldPlaySound = shouldPlaySound;
+        this.soundType = soundType;
+        this.soundSource = soundSource;
+        this.soundEvent = soundEvent;
+        this.volume = volume;
+        this.pitch = pitch;
+    }
+
+    public LockedConfirmSlot(@NotNull Container container, int index, int x, int y, boolean shouldPlaySound) {
+        super(container, index, x, y);
+        if (shouldPlaySound) {
+            this.shouldPlaySound = true;
+            this.soundType = SoundType.PRIVATE;
+            this.soundSource = SoundSource.MASTER;
+            this.soundEvent = SoundUtils.parseSoundOrDefaultSuccess(ES_COMMON_CNFG.getString(SOUND_FEEDBACK_SUCCESS_ID));
+            this.volume = ES_COMMON_CNFG.getFloat(SOUND_FEEDBACK_SUCCESS_VOLUME);
+            this.pitch = ES_COMMON_CNFG.getFloat(SOUND_FEEDBACK_SUCCESS_PITCH);
+        } else {
+            this.shouldPlaySound = false;
+            this.soundType = null;
+            this.soundSource = null;
+            this.soundEvent = null;
+            this.volume = 0.0f;
+            this.pitch = 0.0f;
+        }
+    }
+
+    public LockedConfirmSlot(@NotNull Container container, int index, int x, int y) {
+        super(container, index, x, y);
+        this.shouldPlaySound = true;
+        this.soundType = SoundType.PRIVATE;
+        this.soundSource = SoundSource.MASTER;
+        this.soundEvent = SoundUtils.parseSoundOrDefaultSuccess(ES_COMMON_CNFG.getString(SOUND_FEEDBACK_SUCCESS_ID));
+        this.volume = ES_COMMON_CNFG.getFloat(SOUND_FEEDBACK_SUCCESS_VOLUME);
+        this.pitch = ES_COMMON_CNFG.getFloat(SOUND_FEEDBACK_SUCCESS_PITCH);
+    }
+
+    @Override
+    public boolean mayPickup(Player player) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            MessageUtils.sendClientMessage(ES_COMMON_CNFG.getString(ES_MOD_PREFIX), serverPlayer, "<red>You haven't properly configured the LockedConfirmSlot in your Mod. Please create a new class, extend from LockedConfirmSlot and Override the mayPickup method - otherwise you can't implement your own 'confirm' logic.", false);
+            if (this.shouldPlaySound) SoundUtils.playSound((ServerPlayer) player, soundType, soundEvent, soundSource, new Vec3(player.getX(), player.getY(), player.getZ()), volume, pitch);
+            serverPlayer.closeContainer();
+        }
+        return false;
+    };
+
+    @Override
+    public boolean mayPlace(ItemStack stack) {
+        return false;
+    }
+}
+```
+
+### Example Usage
+<Callout title="SlotUtils Usage" type="info">
+  This example uses the [SlotUtils](/sies/develop/utils/slot-utils) class to position the Slot correctly in the GUI. Currently, the SlotUtils class only supports 6 rows (54 slots) but more will be added in the future.
+</Callout>
+
+In this example, we will create a custom Screen with a locked confirm slot in the bottom right corner. When the slot is clicked, it will close the GUI, send the message "Hello World!" to the player and play the success sound from the SI: Essentials Common Cnfg.
+
+```java tab="Screen Handler" title="MyScreen.java"
+public class MyScreenHandler extends AbstractContainerMenu {
+    private final Container container;
+
+    public MyScreenHandler(MenuType<?> menuType, int syncId, Inventory inv) {
+        super(menuType, syncId);
+        this.container = new SimpleContainer(54); // A simple container with 54 slots (6 rows of 9)
+
+        // Create the item that will be displayed in the locked confirm slot
+        ItemStack confirm = new ItemStack(SrpxItems.CHECKMARK_ITEM);
+        confirm.set(DataComponents.CUSTOM_NAME, MessageUtils.getDeserializedText("<dark_green><b><u>Confirm"));
+        confirm.set(DataComponents.LORE, new ItemLore(List.of(
+                MessageUtils.getDeserializedText("<green>Click to <b>confirm</b>")
+        )));
+
+        // Add the locked confirm slot to the container
+        for (int i = 0; i < 54; i++) {
+            // Used to calculate the x and y position of the slot in the GUI
+            int x = SlotUtils.getXPos(i);
+            int y = SlotUtils.getYPos(i);
+
+            if (i == 53) { // The last slot in the GUI (bottom right corner)
+                container.setItem(i, confirm);
+                /* With the Slots multiple constructors, you can easily configure the sound that is played when the slot is interacted with.
+                 * Example:
+                 * LockedConfirmSlot(container, i, x, y) - Plays the default success sound from the SI: Essentials Common Cnfg when clicked
+                 * LockedConfirmSlot(container, i, x, y, false) - Disables the sound when clicked
+                 * LockedConfirmSlot(container, i, x, y, true, SoundType.PRIVATE, SoundSource.MASTER, SoundEvents.LEVER_CLICK, 0.8f, 1.0f) - Plays the lever click sound at volume 0.8 and pitch 1.0 for the player that clicked the slot
+                 */
+                this.addSlot(new LockedConfirmSlot(container, i, x, y));
+                continue; // Skip the rest of this loop iteration
+            }
+
+            // Fill up other slots (will break the GUI if not not all slots are filled up)
+            // You could set this to ItemStack.EMPTY
+            container.setItem(i, new ItemStack(Items.BLACK_STAINED_GLASS_PANE));
+            // The locked slot doesn't allow any interactions with it (Read more about it on its page)
+            this.addSlot(new LockedSlot(container, i, x, y));
+        }
+    }
+
+    // Disallow quick moving items
+    @Override
+    public ItemStack quickMoveStack(Player player, int i) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return true;
+    }
+}
+```
+```java tab="Custom Locked Confirm Slot" title="MyLockedConfirmSlot.java"
+public class MyLockedConfirmSlot extends LockedConfirmSlot {
+    // Those are the same constructors as in LockedConfirmSlot, but you can only add those that you will actually use. In this case, for demonstration purposes, we will keep all of them.
+    public MyLockedConfirmSlot(Container container, int index, int x, int y) {
+        super(container, index, x, y);
+    }
+
+    public MyLockedConfirmSlot(Container container, int index, int x, int y, boolean shouldPlaySound) {
+        super(container, index, x, y, shouldPlaySound);
+    }
+
+    public MyLockedConfirmSlot(Container container, int index, int x, int y, boolean shouldPlaySound, SoundType soundType, SoundSource soundSource, SoundEvent soundEvent, float volume, float pitch) {
+        super(container, index, x, y, shouldPlaySound, soundType, soundSource, soundEvent, volume, pitch);
+    }
+
+    @Override
+    public boolean mayPickup(Player player) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            MessageUtils.sendClientMessage(ES_COMMON_CNFG.getString(ES_MOD_PREFIX), serverPlayer, "<green>Hello World!", false);
+            if (this.shouldPlaySound) SoundUtils.playSound((ServerPlayer) player, soundType, soundEvent, soundSource, new Vec3(player.getX(), player.getY(), player.getZ()), volume, pitch);
+            serverPlayer.closeContainer();
+        }
+        return false;
+    };
+}
+```
+```java tab="Screen registration" title="ModScreens.java"
+public class ModScreens {
+    // Method to open the Screen/GUI
+    public static void openMyScreen(ServerPlayer player) {
+        player.openMenu(new MenuProvider() {
+            @Override
+            public Component getDisplayName() {
+                // This return statement also supports MessageUtils.getDeserializedText() if you want colors in your Screen title!
+                return Component.literal("My Custom Screen");
+            }
+
+            @Override
+            public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player playerEntity) {
+                MyMod.LOGGER.debug("Opening my custom screen for player " + playerEntity.getName().getString());
+                // At the moment, MenuType.GENERIC_9x6 is the only supported MenuType for custom Screens but more support will be added in the future.
+                return new MyScreenHandler(MenuType.GENERIC_9x6, syncId, inv);
+            }
+        });
+    }
+
+    // Registering the Screen/GUI
+    public static final MenuType<MyScreenHandler> RECIPE_EDITOR =
+            new MenuType<>((syncId, inv) -> new MyScreenHandler(MenuType.GENERIC_9x6, syncId, inv),
+                    net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS);
+
+    // Call this method in your Mod's initialization code
+    public static void register() {}
+}
+```
+
+With this setup, you will have a locked confirm slot in the bottom right corner of your GUI that closes the GUI, plays the success sound from the SI: Essentials Common Cnfg ([`SOUND_FEEDBACK_SUCCESS_ID`](/sies/general-configuration#sound-feedback-success-id)) and sends the message "Hello World!" to the player when clicked.
